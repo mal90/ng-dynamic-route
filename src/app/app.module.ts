@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Module1Component } from './module1/module1.component';
 import { Module3Component } from './module3/module3.component';
-import { RouteGuardService } from './routeloader.service';
+import { RouteGuardService } from './routeguard.service';
 import { DefaultComponent } from './default/default.component';
 
 const routes: Routes = [
