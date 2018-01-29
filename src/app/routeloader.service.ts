@@ -1,63 +1,53 @@
 import { CanActivate } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Router , Route }    from '@angular/router';
-
-
-@Injectable()
-export class module2Loader implements CanActivate{
-    enableRoute : any ;
-
-
-    constructor(private router: Router){   
-        this.enableRoute = JSON.parse(localStorage.getItem("module2"));
-    }
-
-    enableModuleRouting(value){
-        this.enableRoute = value ;
-    }
-
-    canActivate(){
-        return this.enableRoute;
-    }
-
-}
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router/src/router_state';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class module3Loader implements CanActivate{
-    enableRoute : any ;
-
+export class RouteGuardService implements CanActivate{
+    modules : any = eval('(' + localStorage.getItem("modules") + ')');    
 
     constructor(private router: Router){   
-        this.enableRoute = JSON.parse(localStorage.getItem("module3"));
+        
     }
 
-    enableModuleRouting(value){
-        this.enableRoute = value ;
+    setRouteGuard(newModule){
+        let isAdded = false;
+        var moduleObjArr = eval('(' + localStorage.getItem("modules") + ')');
+
+        for (let moduleObj of moduleObjArr) {
+            if(moduleObj.module === newModule){
+                isAdded = true;
+            } 
+        }
+
+        if(!isAdded){
+            moduleObjArr.push({module:newModule});
+            localStorage.setItem("modules",JSON.stringify(moduleObjArr));
+        }
     }
 
-    canActivate(){
-        return this.enableRoute;
+    removeRouteGuard(newModule){
+        var moduleObjArr = eval('(' + localStorage.getItem("modules") + ')');
+        var newModuleObjArr = moduleObjArr.filter(item => item.module !== newModule);
+        localStorage.setItem("modules",JSON.stringify(newModuleObjArr));
     }
+
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
+        var moduleObjArr = eval('(' + localStorage.getItem("modules") + ')');
+        console.log(next.data["module"]);
+        let canActivate = false;
+        for (let module of moduleObjArr) {
+            if(module.module === next.data["module"]){
+                canActivate = true ; 
+            } 
+        };
+        return canActivate;
+    }
+
+    // getStorageItems(){
+
+    // }
+
 }
-
-/**Todo : Instead of having each routeguard module
- * write a generic routeguard module .
-*/
-
-// export class GenericRouteLoader implements CanActivate{
-//     enableRoute : any ;
-
-
-//     constructor(private router: Router){   
-//         this.enableRoute = JSON.parse(localStorage.getItem("module2"));
-//     }
-
-//     enableModuleRouting(value){
-//         this.enableRoute = value ;
-//     }
-
-//     canActivate(){
-//         return this.enableRoute;
-//     }
-
-// }

@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Module1Component } from './module1/module1.component';
 import { Module3Component } from './module3/module3.component';
-import { module2Loader, module3Loader } from './routeloader.service';
+import { RouteGuardService } from './routeloader.service';
 import { DefaultComponent } from './default/default.component';
 
 const routes: Routes = [
@@ -18,12 +18,18 @@ const routes: Routes = [
   {
     path: 'module2',
     component: Module2Component,
-    canActivate: [module2Loader]
+    canActivate: [RouteGuardService],
+    data: {
+      module: "module2"
+    }
   },
   {
     path: 'module3',
     component: Module3Component,
-    canActivate: [module3Loader]
+    canActivate: [RouteGuardService],
+    data: {
+      module: "module3"
+    }
   }
   // {
   //   path: '**',
@@ -43,7 +49,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot( routes)
   ],
-  providers: [module2Loader,module3Loader],
+  providers: [RouteGuardService],
   bootstrap: [AppComponent],
   entryComponents: [Module3Component]
 
