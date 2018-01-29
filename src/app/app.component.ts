@@ -22,37 +22,27 @@ export class AppComponent implements OnInit{
   }
 
   addRoute(module:string){
-    // let r: Route = {
-    //   path: 'module3',
-    //   component: Module3Component
-    // };
-    //this.router.resetConfig([r, ...this.router.config]);
-    //*************************************************************
-    //let routes = this.router.config;
-    //routes.push({ path: 'module3', component: Module3Component });
-    //this.router.resetConfig(routes)
-    //this.routeLoaderService.makeModule3Accessible(true);
-    // this.router.config.splice(this.router.config.length - 1, 0, r);
-    // this.router.resetConfig(this.router.config);
 
+    /**Todo : put the logic of route guard inside in a single service
+     * So that no need to put conditions here for each module
+     */
     localStorage.setItem(module,"true")
     if(module==='module2')
       this.module2Loader.enableModuleRouting(true);
     if(module==='module3')
-      this.module2Loader.enableModuleRouting(true);
+      this.module3Loader.enableModuleRouting(true);
     console.log(this.router.config);
   }
 
   removeRoute(module:string){
-    // let routes = this.router.config;
-    // routes = routes.filter(myObj => myObj.path != "module3");
-    // this.router.resetConfig(routes);
-    // //this.routeLoaderService.makeModule3Accessible(false);
+    /**Todo : put the logic of route guard inside in a single service
+     * So that no need to put conditions here for each module
+     */
     localStorage.removeItem(module)
     if(module==='module2')
       this.module2Loader.enableModuleRouting(false);
     if(module==='module3')
-      this.module2Loader.enableModuleRouting(false);
+      this.module3Loader.enableModuleRouting(false);
     console.log(this.router.config);
   }
 }

@@ -40,6 +40,10 @@ export class module3Loader implements CanActivate{
     }
 }
 
+/**Todo : Instead of having each routeguard module
+ * write a generic routeguard module .
+*/
+
 // export class GenericRouteLoader implements CanActivate{
 //     enableRoute : any ;
 
