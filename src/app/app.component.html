@@ -1,9 +1,11 @@
 <div style="text-align: center">
   <h2><a routerLink="">Module1</a></h2>
-  <h2><a routerLink="module2">Module2</a></h2>
+  <h2><a routerLink="module2">Module2</a></h2> 
+  <input type="button" value="enable route" (click)="addRoute('module2')"/>
+  <input type="button" value="disable route" (click)="removeRoute('module2')"/>
   <h2><a routerLink="module3">Module3</a></h2>
-  <input type="button" value="add module 3 to route" (click)="addRoute()"/>
-  <input type="button" value="remove module 3 from route" (click)="removeRoute()"/>
+  <input type="button" value="enable route" (click)="addRoute('module3')"/>
+  <input type="button" value="disable route" (click)="removeRoute('module3')"/>
 </div>
 
 <router-outlet></router-outlet>
